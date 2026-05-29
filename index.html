@@ -249,8 +249,9 @@ footer{background:var(--brown-dark);padding:2.8rem;text-align:center;}
         </div>
       </div>
       <div class="about-image-placeholder">
-        <!-- 写真を入れる場合: <img src="photo1.jpg" alt="コメオケの写真" class="about-photo"> -->
-        <span>Photo Here</span>
+        <img src="photo_main.jpg" alt="コメオケの写真" class="about-photo"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span style="display:none;">Photo Here</span>
       </div>
     </div>
   </div>
@@ -311,7 +312,7 @@ footer{background:var(--brown-dark);padding:2.8rem;text-align:center;}
           <img src="poster_2026_0405.jpg" alt="2026年4月5日チャリティコンサート">
         </div>
         <p class="poster-card-title">チャリティコンサート</p>
-        <p class="poster-card-date">2026年4月5日（日）名大病院</p>
+        <p class="poster-card-date">2026年4月5日（日）名市大病院</p>
       </div>
       <div class="poster-card" onclick="openModal('poster_2026_0403.jpg')">
         <div class="poster-thumb">
@@ -327,7 +328,7 @@ footer{background:var(--brown-dark);padding:2.8rem;text-align:center;}
           <img src="poster_2025_1115.jpg" alt="2025年11月15日チャリティーコンサート">
         </div>
         <p class="poster-card-title">チャリティーコンサート</p>
-        <p class="poster-card-date">2025年11月15日（土）名大病院</p>
+        <p class="poster-card-date">2025年11月15日（土）名市大病院</p>
       </div>
     </div>
 
