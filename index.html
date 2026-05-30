@@ -39,8 +39,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0.8rem 3rem;display:
 .nav-logo-img{width:32px;height:32px;object-fit:contain;}
 .nav-logo-text{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;letter-spacing:0.12em;color:var(--brown-dark);}
 .nav-links{display:flex;gap:2.2rem;list-style:none;}
-.nav-links a{font-family:'Lato',sans-serif;font-size:0.7rem;font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color 0.3s;}
+.nav-links a{font-family:'Lato',sans-serif;font-size:0.7rem;font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color 0.3s;position:relative;padding-bottom:0.2rem;}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:50%;width:0;height:0.5px;background:var(--brown-light);transition:width 0.3s ease, left 0.3s ease;}
 .nav-links a:hover{color:var(--brown);}
+.nav-links a:hover::after{width:100%;left:0;}
+.nav-links a .nav-plant{position:absolute;bottom:100%;left:50%;transform:translateX(-50%) scaleY(0);transform-origin:bottom center;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);pointer-events:none;}
+.nav-links a:hover .nav-plant{transform:translateX(-50%) scaleY(1);}
 .nav-menu-btn{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px;}
 .nav-menu-btn span{display:block;width:22px;height:1px;background:var(--brown-dark);}
 
@@ -284,13 +288,13 @@ nav.scrolled{background:rgba(250,248,244,0.97);box-shadow:0 2px 20px rgba(92,69,
     <span class="nav-logo-text">Comeoke</span>
   </a>
   <ul class="nav-links" id="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#members">Members</a></li>
-    <li><a href="#concerts">Concerts</a></li>
-    <li><a href="#join">Contact</a></li>
-    <li><a href="#video">Movie</a></li>
-    <li><a href="#question">Q&amp;A</a></li>
-    <li><a href="#social">SNS</a></li>
+    <li><a href="#about"><svg class="nav-plant" width="14" height="18" viewBox="0 0 14 18"><path d="M7,17 Q7,10 7,3" stroke="#8aaa6a" stroke-width="1" fill="none" stroke-linecap="round"/><path d="M7,11 Q4,8 3,5 Q6,6 7,10" stroke="#8aaa6a" stroke-width="0.8" fill="#b8d4a0" fill-opacity="0.7"/><path d="M7,8 Q10,5 11,2 Q8,4 7,7" stroke="#8aaa6a" stroke-width="0.8" fill="#b8d4a0" fill-opacity="0.7"/></svg>About</a></li>
+    <li><a href="#members"><svg class="nav-plant" width="14" height="18" viewBox="0 0 14 18"><path d="M7,17 Q7,10 7,3" stroke="#7aaa88" stroke-width="1" fill="none" stroke-linecap="round"/><circle cx="7" cy="3" r="2" fill="#f4a0a0" fill-opacity="0.7"/><ellipse cx="4" cy="5" rx="1.5" ry="1" fill="#f4a0a0" fill-opacity="0.5" transform="rotate(-30 4 5)"/><ellipse cx="10" cy="5" rx="1.5" ry="1" fill="#f4a0a0" fill-opacity="0.5" transform="rotate(30 10 5)"/></svg>Members</a></li>
+    <li><a href="#concerts"><svg class="nav-plant" width="14" height="18" viewBox="0 0 14 18"><path d="M7,17 Q7,10 7,3" stroke="#8aaa6a" stroke-width="1" fill="none" stroke-linecap="round"/><path d="M7,10 Q4,7 3,4" stroke="#8aaa6a" stroke-width="0.8" fill="none"/><path d="M7,10 Q10,7 11,4" stroke="#8aaa6a" stroke-width="0.8" fill="none"/><circle cx="3" cy="3.5" r="1.5" fill="#e8d070" fill-opacity="0.8"/><circle cx="11" cy="3.5" r="1.5" fill="#e8d070" fill-opacity="0.8"/><circle cx="7" cy="2" r="1.5" fill="#e8d070" fill-opacity="0.8"/></svg>Concerts</a></li>
+    <li><a href="#join"><svg class="nav-plant" width="14" height="18" viewBox="0 0 14 18"><path d="M7,17 Q7,10 7,3" stroke="#7aaa78" stroke-width="1" fill="none" stroke-linecap="round"/><ellipse cx="7" cy="3" rx="1.5" ry="2.5" fill="#c4a8d8" fill-opacity="0.7"/><ellipse cx="4.5" cy="6" rx="1.2" ry="2" fill="#c4a8d8" fill-opacity="0.55" transform="rotate(-15 4.5 6)"/><ellipse cx="9.5" cy="6" rx="1.2" ry="2" fill="#c4a8d8" fill-opacity="0.55" transform="rotate(15 9.5 6)"/></svg>Contact</a></li>
+    <li><a href="#video"><svg class="nav-plant" width="14" height="18" viewBox="0 0 14 18"><path d="M7,17 Q7,10 7,3" stroke="#8aaa6a" stroke-width="1" fill="none" stroke-linecap="round"/><path d="M7,12 Q4,9 3,6 Q6,7 7,11" stroke="#8aaa6a" stroke-width="0.8" fill="#aad4a0" fill-opacity="0.6"/><path d="M7,8 Q10,5 11,2 Q8,4 7,7" stroke="#8aaa6a" stroke-width="0.8" fill="#aad4a0" fill-opacity="0.6"/></svg>Movie</a></li>
+    <li><a href="#question"><svg class="nav-plant" width="14" height="18" viewBox="0 0 14 18"><path d="M7,17 Q7,10 7,3" stroke="#7aaa88" stroke-width="1" fill="none" stroke-linecap="round"/><path d="M5,8 Q7,3 9,8 Q8,10 7,10 Q6,10 5,8Z" fill="#f4a888" fill-opacity="0.7" stroke="#e89070" stroke-width="0.6"/></svg>Q&amp;A</a></li>
+    <li><a href="#social"><svg class="nav-plant" width="14" height="18" viewBox="0 0 14 18"><path d="M7,17 Q7,10 7,3" stroke="#8aaa6a" stroke-width="1" fill="none" stroke-linecap="round"/><path d="M7,11 Q4,8 3,5 Q6,6 7,10" stroke="#8aaa6a" stroke-width="0.8" fill="#b8d4a0" fill-opacity="0.7"/><path d="M7,8 Q10,5 11,2 Q8,4 7,7" stroke="#8aaa6a" stroke-width="0.8" fill="#b8d4a0" fill-opacity="0.7"/></svg>SNS</a></li>
   </ul>
   <button class="nav-menu-btn" onclick="document.getElementById('nav-links').classList.toggle('open')" aria-label="メニュー">
     <span></span><span></span><span></span>
