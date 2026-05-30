@@ -141,7 +141,7 @@ section{padding:5.5rem 2rem;}
 .join-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;background:var(--brown-dark);}
 .join-card{background:var(--brown-dark);padding:2.2rem 1.8rem;transition:background 0.3s;text-decoration:none;display:block;}
 .join-card:hover{background:var(--brown);}
-.join-card.dimmed{opacity:0.6;}
+.join-card.dimmed{opacity:0.75;}
 .join-icon{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;font-style:italic;color:var(--brown-light);display:block;margin-bottom:0.9rem;}
 .join-card h3{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:400;color:var(--warm-white);margin-bottom:0.7rem;letter-spacing:0.05em;}
 .join-card p{font-family:'Lato',sans-serif;font-size:0.7rem;color:rgba(250,248,244,0.6);line-height:1.8;}
@@ -182,6 +182,18 @@ footer{background:var(--brown-dark);padding:2.8rem;text-align:center;}
   100%{opacity:0;transform:translateY(100vh) rotate(180deg);}
 }
 
+/* ① スクロールでふわっと */
+.fade-in{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+
+/* ② 音符カーソル */
+*{cursor:none!important;}
+#custom-cursor{position:fixed;pointer-events:none;z-index:9999;font-size:18px;transform:translate(-50%,-50%);transition:transform 0.1s ease;color:var(--brown);opacity:0.75;line-height:1;}
+
+/* ③ ナビバースクロール変化 */
+nav{transition:background 0.4s ease,box-shadow 0.4s ease,padding 0.3s ease;}
+nav.scrolled{background:rgba(250,248,244,0.97);box-shadow:0 2px 20px rgba(92,69,48,0.08);padding-top:0.5rem;padding-bottom:0.5rem;}
+
 @keyframes scrollPulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
 
 @media(max-width:768px){
@@ -195,10 +207,15 @@ footer{background:var(--brown-dark);padding:2.8rem;text-align:center;}
   .hero-logo{width:120px;height:120px;}
   .poster-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));}
   .concert-insta-banner{flex-direction:column;text-align:center;}
+  #custom-cursor{display:none;}
+  *{cursor:auto!important;}
 }
 </style>
 </head>
 <body>
+
+<!-- 音符カーソル -->
+<div id="custom-cursor">♩</div>
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modal" onclick="closeModal(event)">
@@ -250,7 +267,7 @@ footer{background:var(--brown-dark);padding:2.8rem;text-align:center;}
 </section>
 
 <!-- ABOUT -->
-<section id="about">
+<section id="about" class="fade-in">
   <div class="section-inner">
     <div class="about-grid">
       <div class="about-text">
@@ -280,7 +297,7 @@ footer{background:var(--brown-dark);padding:2.8rem;text-align:center;}
 </section>
 
 <!-- MEMBERS -->
-<section id="members">
+<section id="members" class="fade-in">
   <div class="section-inner">
     <span class="section-label">Members</span>
     <h2 class="section-title">楽器<em>構成</em></h2>
@@ -306,7 +323,7 @@ footer{background:var(--brown-dark);padding:2.8rem;text-align:center;}
 </section>
 
 <!-- CONCERTS & POSTERS -->
-<section id="concerts">
+<section id="concerts" class="fade-in">
   <div class="section-inner">
     <span class="section-label">Concerts</span>
     <h2 class="section-title">演奏<em>記録 &amp; 予定</em></h2>
@@ -366,7 +383,7 @@ footer{background:var(--brown-dark);padding:2.8rem;text-align:center;}
 </section>
 
 <!-- JOIN -->
-<section id="join">
+<section id="join" class="fade-in">
   <div class="section-inner">
     <span class="section-label">Join &amp; Contact</span>
     <h2 class="section-title">コメオケと、<em>つながる。</em></h2>
@@ -484,6 +501,37 @@ function closeModal(e){
 document.addEventListener('keydown', function(e){
   if(e.key === 'Escape') closeModal(null);
 });
+/* ① スクロールでふわっと */
+var observer = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting) entry.target.classList.add('visible');
+  });
+},{threshold:0.12});
+document.querySelectorAll('.fade-in').forEach(function(el){ observer.observe(el); });
+
+/* ② 音符カーソル */
+var notes = ['♩','♪','♫','♬'];
+var cursor = document.getElementById('custom-cursor');
+if(cursor){
+  document.addEventListener('mousemove',function(e){
+    cursor.style.left = e.clientX+'px';
+    cursor.style.top = e.clientY+'px';
+  });
+  document.addEventListener('click',function(){
+    var n = notes[Math.floor(Math.random()*notes.length)];
+    cursor.textContent = n;
+    cursor.style.transform = 'translate(-50%,-50%) scale(1.4)';
+    setTimeout(function(){ cursor.style.transform='translate(-50%,-50%) scale(1)'; },150);
+  });
+}
+
+/* ③ ナビバースクロール変化 */
+window.addEventListener('scroll',function(){
+  var nav = document.querySelector('nav');
+  if(window.scrollY > 40) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+
 document.addEventListener('click', function(e){
   var nav = document.getElementById('nav-links');
   if(nav && !nav.contains(e.target) && !e.target.closest('.nav-menu-btn')){
@@ -536,10 +584,12 @@ document.addEventListener('click', function(e){
   }
 
   createPlant();
+  createPlant();
+  createPlant();
+  setTimeout(createPlant, 400);
   setTimeout(createPlant, 800);
-  setTimeout(createPlant, 1600);
-  setTimeout(createPlant, 2400);
-  setTimeout(createPlant, 3200);
+  setTimeout(createPlant, 1200);
+  setTimeout(createPlant, 1800);
   setInterval(createPlant, 2800);
 })();
 </script>
