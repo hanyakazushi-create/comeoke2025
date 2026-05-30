@@ -173,7 +173,15 @@ footer{background:var(--brown-dark);padding:2.8rem;text-align:center;}
 .footer-sub{font-family:'Lato',sans-serif;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--brown-light);margin-bottom:1.8rem;}
 .footer-copy{font-family:'Lato',sans-serif;font-size:0.62rem;color:rgba(250,248,244,0.3);letter-spacing:0.1em;}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+/* 葉っぱの装飾 */
+.leaf{position:fixed;pointer-events:none;z-index:0;opacity:0;}
+@keyframes leafFloat{
+  0%{opacity:0;transform:translateY(-20px) rotate(0deg);}
+  10%{opacity:1;}
+  90%{opacity:0.6;}
+  100%{opacity:0;transform:translateY(100vh) rotate(180deg);}
+}
+
 @keyframes scrollPulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
 
 @media(max-width:768px){
@@ -210,7 +218,9 @@ footer{background:var(--brown-dark);padding:2.8rem;text-align:center;}
     <li><a href="#members">Members</a></li>
     <li><a href="#concerts">Concerts</a></li>
     <li><a href="#join">Contact</a></li>
+    <li><a href="#video">Movie</a></li>
     <li><a href="#question">Q&amp;A</a></li>
+    <li><a href="#social">SNS</a></li>
   </ul>
   <button class="nav-menu-btn" onclick="document.getElementById('nav-links').classList.toggle('open')" aria-label="メニュー">
     <span></span><span></span><span></span>
@@ -480,6 +490,58 @@ document.addEventListener('click', function(e){
     nav.classList.remove('open');
   }
 });
+
+/* hand drawn風の植物がふわふわ漂う */
+(function(){
+  var plants = [
+    /* 小さい葉っぱ2枚 */
+    '<g stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M10,20 Q10,10 10,2" stroke="#8aaa6a" stroke-width="1.2"/><path d="M10,12 Q5,8 4,4 Q8,5 10,10" stroke="#8aaa6a" stroke-width="1" fill="#b8d4a0" fill-opacity="0.6"/><path d="M10,8 Q15,5 16,1 Q12,3 10,7" stroke="#8aaa6a" stroke-width="1" fill="#b8d4a0" fill-opacity="0.6"/></g>',
+    /* 丸い実つき枝 */
+    '<g stroke-linecap="round" fill="none"><path d="M10,22 Q10,14 10,6" stroke="#7aaa88" stroke-width="1.2"/><path d="M10,14 Q6,11 4,8" stroke="#7aaa88" stroke-width="1"/><path d="M10,10 Q14,7 16,5" stroke="#7aaa88" stroke-width="1"/><circle cx="4" cy="7" r="1.8" fill="#a8d4b0" fill-opacity="0.7"/><circle cx="16" cy="4" r="1.8" fill="#a8d4b0" fill-opacity="0.7"/><circle cx="10" cy="4" r="1.5" fill="#a8d4b0" fill-opacity="0.7"/></g>',
+    /* 小花 */
+    '<g stroke-linecap="round" fill="none"><path d="M10,22 Q10,14 10,8" stroke="#8aaa6a" stroke-width="1.2"/><circle cx="10" cy="5" r="1.5" fill="#f4a0a0" fill-opacity="0.7"/><ellipse cx="7" cy="6" rx="2" ry="1.2" fill="#f4a0a0" fill-opacity="0.5" transform="rotate(-30 7 6)"/><ellipse cx="13" cy="6" rx="2" ry="1.2" fill="#f4a0a0" fill-opacity="0.5" transform="rotate(30 13 6)"/><ellipse cx="10" cy="3" rx="2" ry="1.2" fill="#f4a0a0" fill-opacity="0.5"/><ellipse cx="10" cy="8" rx="2" ry="1.2" fill="#f4a0a0" fill-opacity="0.5"/></g>',
+    /* 枝葉 */
+    '<g stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M10,22 Q9,14 8,6" stroke="#7aaa78" stroke-width="1.2"/><path d="M9,16 Q5,13 3,10 Q7,11 9,14" stroke="#7aaa78" stroke-width="1" fill="#aad4a0" fill-opacity="0.55"/><path d="M9,12 Q13,9 14,6 Q11,8 9,11" stroke="#7aaa78" stroke-width="1" fill="#aad4a0" fill-opacity="0.55"/><path d="M8,8 Q5,5 4,2 Q7,4 8,7" stroke="#7aaa78" stroke-width="1" fill="#aad4a0" fill-opacity="0.55"/></g>',
+    /* 黄色い小花 */
+    '<g stroke-linecap="round" fill="none"><path d="M10,22 Q10,15 10,9" stroke="#8aaa6a" stroke-width="1.2"/><path d="M10,15 Q6,12 5,9" stroke="#8aaa6a" stroke-width="1"/><path d="M10,15 Q14,12 15,9" stroke="#8aaa6a" stroke-width="1"/><circle cx="5" cy="8" r="1.5" fill="#e8d070" fill-opacity="0.7"/><circle cx="15" cy="8" r="1.5" fill="#e8d070" fill-opacity="0.7"/><circle cx="10" cy="7" r="1.8" fill="#e8d070" fill-opacity="0.7"/></g>',
+    /* チューリップ風 */
+    '<g stroke-linecap="round" fill="none"><path d="M10,22 Q10,16 10,11" stroke="#8aaa6a" stroke-width="1.2"/><path d="M10,16 Q7,14 6,12" stroke="#8aaa6a" stroke-width="1"/><path d="M10,16 Q13,14 14,12" stroke="#8aaa6a" stroke-width="1"/><path d="M7,11 Q10,6 13,11 Q11,13 10,13 Q9,13 7,11Z" fill="#f4a888" fill-opacity="0.65" stroke="#e89070" stroke-width="0.8"/></g>',
+    /* ラベンダー風 */
+    '<g stroke-linecap="round" fill="none"><path d="M10,22 Q10,14 10,6" stroke="#8aaa6a" stroke-width="1.2"/><ellipse cx="10" cy="5" rx="1.5" ry="2.5" fill="#c4a8d8" fill-opacity="0.65" stroke="#b090c8" stroke-width="0.8"/><ellipse cx="7" cy="8" rx="1.2" ry="2" fill="#c4a8d8" fill-opacity="0.55" stroke="#b090c8" stroke-width="0.8" transform="rotate(-15 7 8)"/><ellipse cx="13" cy="8" rx="1.2" ry="2" fill="#c4a8d8" fill-opacity="0.55" stroke="#b090c8" stroke-width="0.8" transform="rotate(15 13 8)"/></g>',
+  ];
+
+  function createPlant(){
+    var svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.setAttribute('viewBox','0 0 20 24');
+    var size = 18 + Math.random()*14;
+    svg.setAttribute('width', size);
+    svg.setAttribute('height', size*1.2);
+    svg.classList.add('leaf');
+    svg.innerHTML = plants[Math.floor(Math.random()*plants.length)];
+
+    var fromRight = Math.random() > 0.5;
+    var xPos = fromRight
+      ? (window.innerWidth - 200 + Math.random()*170) + 'px'
+      : (Math.random()*170) + 'px';
+
+    svg.style.cssText = 'position:fixed;top:-40px;left:'+xPos+';pointer-events:none;z-index:0;opacity:0;';
+
+    var duration = 10 + Math.random()*14;
+    var delay = Math.random()*2;
+    svg.style.animation = 'leafFloat '+duration+'s ease-in '+delay+'s forwards';
+    svg.style.transform = 'rotate('+(Math.random()*40-20)+'deg)';
+
+    document.body.appendChild(svg);
+    setTimeout(function(){ if(svg.parentNode) svg.remove(); }, (duration+delay+2)*1000);
+  }
+
+  createPlant();
+  setTimeout(createPlant, 800);
+  setTimeout(createPlant, 1600);
+  setTimeout(createPlant, 2400);
+  setTimeout(createPlant, 3200);
+  setInterval(createPlant, 2800);
+})();
 </script>
 </body>
 </html>
