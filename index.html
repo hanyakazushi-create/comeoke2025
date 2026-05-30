@@ -222,7 +222,12 @@ footer{background:var(--brown-dark);padding:2.8rem;text-align:center;}
   <svg class="hero-deco hero-deco-l" viewBox="0 0 200 400" fill="none"><path d="M100 380 C100 380 80 300 90 220 C100 140 60 80 80 20" stroke="#8B6F4E" stroke-width="1.5"/><ellipse cx="70" cy="160" rx="35" ry="20" transform="rotate(-30 70 160)" stroke="#8B6F4E" stroke-width="1"/><ellipse cx="110" cy="100" rx="28" ry="16" transform="rotate(20 110 100)" stroke="#8B6F4E" stroke-width="1"/><ellipse cx="85" cy="240" rx="30" ry="18" transform="rotate(-45 85 240)" stroke="#8B6F4E" stroke-width="1"/><circle cx="55" cy="60" r="8" stroke="#8B6F4E" stroke-width="1"/><circle cx="130" cy="200" r="6" stroke="#8B6F4E" stroke-width="1"/></svg>
   <svg class="hero-deco hero-deco-r" viewBox="0 0 200 400" fill="none"><path d="M100 380 C100 380 80 300 90 220 C100 140 60 80 80 20" stroke="#8B6F4E" stroke-width="1.5"/><ellipse cx="70" cy="160" rx="35" ry="20" transform="rotate(-30 70 160)" stroke="#8B6F4E" stroke-width="1"/><ellipse cx="110" cy="100" rx="28" ry="16" transform="rotate(20 110 100)" stroke="#8B6F4E" stroke-width="1"/><ellipse cx="85" cy="240" rx="30" ry="18" transform="rotate(-45 85 240)" stroke="#8B6F4E" stroke-width="1"/><circle cx="55" cy="60" r="8" stroke="#8B6F4E" stroke-width="1"/></svg>
 
-  <img src="logo.png" alt="Comeoke" class="hero-logo">
+  <!-- logo_animation.mp4 があれば動画、なければ静止画を表示 -->
+  <video class="hero-logo" autoplay muted loop playsinline poster="logo.png"
+         onerror="this.style.display='none'; document.getElementById('hero-logo-img').style.display='block';">
+    <source src="logo_animation.mp4" type="video/mp4">
+  </video>
+  <img id="hero-logo-img" src="logo.png" alt="Comeoke" class="hero-logo" style="display:none;">
   <p class="hero-label">Nagoya City University Medical Orchestra</p>
   <h1 class="hero-title"><em>Come</em>oke</h1>
   <p class="hero-subtitle">名市大医療系室内合奏部</p>
@@ -370,7 +375,7 @@ footer{background:var(--brown-dark);padding:2.8rem;text-align:center;}
         <p>次回演奏会の詳細はInstagramで随時お知らせ。入場無料。</p>
         <span class="join-insta-note">→ Instagramで最新情報を確認</span>
       </a>
-      <a class="join-card" href="https://www.youtube.com/@%E5%90%8D%E5%B8%82%E5%A4%A7%E5%8C%BB%E7%99%82%E7%B3%BB%E5%90%88%E5%A5%8F%E5%9B%A3" target="_blank" rel="noopener">
+      <a class="join-card" href="https://www.youtube.com/@名市大医療系合奏団" target="_blank" rel="noopener">
         <span class="join-icon">▶</span>
         <h3>過去の演奏を聴く</h3>
         <p>これまでの演奏会の動画をYouTubeで公開しています。</p>
@@ -383,6 +388,31 @@ footer{background:var(--brown-dark);padding:2.8rem;text-align:center;}
         <span class="join-insta-note">→ InstagramのDMへ</span>
       </a>
     </div>
+  </div>
+</section>
+
+<!-- YOUTUBE -->
+<section id="video" style="background:var(--cream);">
+  <div class="section-inner">
+    <span class="section-label">Movie</span>
+    <h2 class="section-title">演奏<em>動画</em></h2>
+    <div class="thin-divider"></div>
+    <div style="position:relative;width:100%;padding-bottom:56.25%;border:0.5px solid var(--beige);">
+      <iframe
+        src="https://www.youtube.com/embed/f97-mZSZ_Mc"
+        title="コメオケ演奏動画"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        style="position:absolute;inset:0;width:100%;height:100%;">
+      </iframe>
+    </div>
+    <p style="font-family:'Lato',sans-serif;font-size:0.65rem;letter-spacing:0.1em;color:var(--text-muted);text-align:center;margin-top:1rem;">
+      その他の演奏動画は
+      <a href="https://www.youtube.com/@名市大医療系合奏団" target="_blank" rel="noopener"
+         style="color:var(--brown);text-decoration:underline;">YouTubeチャンネル</a>
+      でご覧いただけます。
+    </p>
   </div>
 </section>
 
